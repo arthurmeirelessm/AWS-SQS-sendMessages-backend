@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
+</head>
+
+<body>
+    <div x-data="inicializar()">
+        <h1>Gerador de imagens</h1>
+        <div>
+            <label>Quantidade de imagens</label>S
+            <input x-model="qtdImagens" type="text" />
+        </div>
+        <button @click="solicitarImagens()">Solicitar imagens</button>
+    </div>
+</body>
+<script>
+    function inicializar() {
+        return {
+            qtdImagens: 0,
+            solicitarImagens() {
+                const body = JSON.stringify({ qtdImagens: this.qtdImagens });
+                fetch('/solicitar_imagens',
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: body
+                    })
+            }
+
+        }
+    }
+</script>
+
+</html>
